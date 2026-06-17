@@ -1,5 +1,4 @@
-const CACHE_NAME = "masrouf-v1";
-
+const CACHE_NAME = "masrouf-v2"; // ⚠️ incrémenté pour forcer le rafraîchissement
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -13,13 +12,21 @@ const FILES_TO_CACHE = [
   "./icons/icon-512.png"
 ];
 
-// Installation
+// Installation — chaque fichier est mis en cache individuellement.
+// Si un fichier est introuvable (404), on logge l'erreur SANS faire échouer
+// toute l'installation (contrairement à cache.addAll qui est "tout ou rien").
 self.addEventListener("install", event => {
   self.skipWaiting();
-
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
+    caches.open(CACHE_NAME).then(cache => {
+      return Promise.all(
+        FILES_TO_CACHE.map(url =>
+          cache.add(url).catch(err => {
+            console.error("[SW] Échec mise en cache:", url, err);
+          })
+        )
+      );
+    })
   );
 });
 
@@ -34,7 +41,6 @@ self.addEventListener("activate", event => {
       )
     )
   );
-
   self.clients.claim();
 });
 
