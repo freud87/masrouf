@@ -1,15 +1,15 @@
 const CACHE_NAME = "masrouf-v5";
 const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./wallet.png",
-  "./bg.jpg",
-  "./ferico.png",
-  "./sabico.png",
-  "./calculator.png",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "/masrouf/",
+  "/masrouf/index.html",
+  "/masrouf/manifest.json",
+  "/masrouf/wallet.png",
+  "/masrouf/bg.jpg",
+  "/masrouf/ferico.png",
+  "/masrouf/sabico.png",
+  "/masrouf/calculator.png",
+  "/masrouf/icons/icon-192.png",
+  "/masrouf/icons/icon-512.png"
 ];
 
 self.addEventListener("install", event => {
