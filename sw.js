@@ -1,4 +1,4 @@
-const CACHE_NAME = "masrouf-v3"; // ⚠️ incrémenté pour forcer le rafraîchissement
+const CACHE_NAME = "masrouf-v4";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -12,9 +12,6 @@ const FILES_TO_CACHE = [
   "./icons/icon-512.png"
 ];
 
-// Installation — chaque fichier est mis en cache individuellement.
-// Si un fichier est introuvable (404), on logge l'erreur SANS faire échouer
-// toute l'installation (contrairement à cache.addAll qui est "tout ou rien").
 self.addEventListener("install", event => {
   self.skipWaiting();
   event.waitUntil(
@@ -22,7 +19,7 @@ self.addEventListener("install", event => {
       return Promise.all(
         FILES_TO_CACHE.map(url =>
           cache.add(url).catch(err => {
-            console.error("[SW] Échec mise en cache:", url, err);
+            console.warn("[SW] Échec cache:", url, err);
           })
         )
       );
@@ -30,24 +27,29 @@ self.addEventListener("install", event => {
   );
 });
 
-// Activation
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       )
     )
   );
   self.clients.claim();
 });
 
-// Requêtes
 self.addEventListener("fetch", event => {
+  // Ignorer les requêtes POST (Google Apps Script)
+  if (event.request.method !== "GET") return;
+  
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    fetch(event.request)
+      .then(response => {
+        // Cloner et mettre en cache la réponse réseau
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
