@@ -1,4 +1,4 @@
-const CACHE_NAME = "masrouf-v2"; // ⚠️ incrémenté pour forcer le rafraîchissement
+const CACHE_NAME = "masrouf-v3"; // ⚠️ incrémenté pour forcer le rafraîchissement
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
