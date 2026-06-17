@@ -948,33 +948,29 @@
   }
   </script>
     <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', async () => {
-      try {
-        const reg = await navigator.serviceWorker.register('./sw.js');
-
-        reg.addEventListener('updatefound', () => {
-          const worker = reg.installing;
-
-          worker.addEventListener('statechange', () => {
-            if (
-              worker.state === 'installed' &&
-              navigator.serviceWorker.controller
-            ) {
-
-              if (confirm('Une nouvelle version est disponible. Mettre à jour ?')) {
-                window.location.reload();
-              }
+  // ✅ UN SEUL bloc - celui-ci
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js');
+      
+      reg.addEventListener('updatefound', () => {
+        const worker = reg.installing;
+        worker.addEventListener('statechange', () => {
+          if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+            if (confirm('Nouvelle version disponible. Mettre à jour ?')) {
+              window.location.reload();
             }
-          });
+          }
         });
-
-        console.log('Service Worker installé');
-      } catch (err) {
-        console.error(err);
-      }
-    });
-  }
+      });
+      
+      console.log('SW installé');
+    } catch (err) {
+      console.error('SW error:', err);
+    }
+  });
+}
   </script>
 </body>
 </html>
