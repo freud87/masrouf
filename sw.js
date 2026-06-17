@@ -1,4 +1,4 @@
-const CACHE_NAME = "masrouf-v4";
+const CACHE_NAME = "masrouf-v5";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -39,13 +39,11 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  // Ignorer les requêtes POST (Google Apps Script)
   if (event.request.method !== "GET") return;
   
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Cloner et mettre en cache la réponse réseau
         const clone = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         return response;
