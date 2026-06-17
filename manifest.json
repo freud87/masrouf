@@ -4,6 +4,7 @@
   "description": "Gestion des dépenses Ferid & Saber",
   "start_url": "/masrouf/",
   "scope": "/masrouf/",
+  "id": "/masrouf/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
@@ -13,13 +14,13 @@
       "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
