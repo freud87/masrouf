@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-
-
-        <meta name="mobile-web-app-capable" content="yes">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta charset="UTF-8">
-
-  
   <title>Suivi Masrouf - Ferid & Saber</title>
   <meta name="description" content="Application de suivi des dépenses partagées">
-  
-  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#3498db">
   <link rel="icon" href="wallet.png">
-  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  
   <style>
-    * { box-sizing: border-box; }
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-      background-image: url(bg.jpg); 
-      margin: 0; 
-      padding: 10px; 
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url(bg.jpg);
+      margin: 0;
+      padding: 10px;
       min-height: 100vh;
     }
-    
+
     /* ===== HEADER ===== */
     header {
       display: flex;
@@ -41,40 +32,50 @@
       padding: 8px 16px;
       background: white;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       position: relative;
     }
-    header h2 { 
-      margin: 0; 
-      font-size: 20px; 
-      color: #2c3e50; 
-      display: flex; 
-      align-items: center; 
+    header h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #2c3e50;
+      display: flex;
+      align-items: center;
     }
-    header img { margin: 0; }
-    .user-badge { 
-      font-size: 12px; 
-      color: #7f8c8d; 
+    header img {
+      margin: 0;
+    }
+    .user-badge {
+      font-size: 12px;
+      color: #7f8c8d;
       font-weight: bold;
     }
 
     /* ===== NOTIFICATIONS STATUS ===== */
-    #status { 
-      padding: 6px 12px; 
-      border-radius: 4px; 
-      text-align: center; 
-      font-weight: bold; 
-      display: none; 
-      font-size: 12px; 
+    #status {
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+      font-size: 12px;
     }
     .status-pc {
       margin-left: auto;
       margin-right: 15px;
       max-width: 300px;
     }
-    .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-    .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-   
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
     /* ===== MAIN CONTAINER - FLEX LAYOUT ===== */
     .main-container {
       display: flex;
@@ -84,47 +85,69 @@
       margin: 0 auto;
       align-items: flex-start;
     }
-    
+
     .col-left {
       min-width: 0;
       background-color: #fff;
       padding: 16px 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       flex: 1;
     }
-    
+
     .col-right {
       flex: 1.3;
       min-width: 0;
       background-color: #fff;
       padding: 16px 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       height: auto;
     }
-    
+
     /* ===== FORMULAIRE ===== */
-    .form-group { display: flex; flex-direction: column; margin-bottom: 8px; position: relative; }
-    .label-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
-    label { color: #34495e; font-weight: 600; font-size: 12px; }
-    
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    
-    input[type="number"], input[type="date"] { 
-      width: 100%; 
-      padding: 6px 10px; 
-      border: 1px solid #bdc3c7; 
-      border-radius: 4px; 
-      font-size: 13px; 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8px;
+      position: relative;
     }
-    input[type="number"]:focus { border-color: #3498db; background-color: #fcfdfe; outline: none; }
-    
+    .label-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+    label {
+      color: #34495e;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    input[type="number"]:focus {
+      border-color: #3498db;
+      background-color: #fcfdfe;
+      outline: none;
+    }
+
     .calc-input-icon {
       position: absolute;
       right: 8px;
@@ -135,68 +158,100 @@
       display: none;
       z-index: 10;
     }
-    
-    .grid-2 { display: flex; gap: 10px;}
 
-    .jour-box { 
-      background: #eec; 
-      padding: 6px 10px; 
-      border-radius: 4px; 
-      text-align: center; 
-      font-weight: bold; 
-      color: #2c3e50; 
-      border: 1px solid #bdc3c7; 
+    .grid-2 {
+      display: flex;
+      gap: 10px;
+    }
+
+    .jour-box {
+      background: #eec;
+      padding: 6px 10px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+      color: #2c3e50;
+      border: 1px solid #bdc3c7;
       font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex: 1;
     }
-    fieldset { 
-      border: 1px solid #3498db; 
-      border-radius: 6px; 
-      margin-bottom: 10px; 
-      padding: 10px; 
-      background-color: #fdfdfd; 
+    fieldset {
+      border: 1px solid #3498db;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fdfdfd;
     }
-    legend { font-weight: bold; color: #2980b9; font-size: 14px; padding: 0 8px; }
-    
-    button { 
-      width: 100%; 
-      padding: 8px; 
-      background-color: #3498db; 
-      color: white; 
-      border: none; 
-      border-radius: 4px; 
-      font-size: 14px; 
-      font-weight: bold; 
-      cursor: pointer; 
-      margin-top: 5px; 
-      transition: background 0.3s; 
+    legend {
+      font-weight: bold;
+      color: #2980b9;
+      font-size: 14px;
+      padding: 0 8px;
     }
-    button:hover { background-color: #2980b9; }
-    button i { margin-right: 6px; }
-    
+
+    button {
+      width: 100%;
+      padding: 8px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    button i {
+      margin-right: 6px;
+    }
+
     /* ===== RECAP BOX ===== */
-    .recap-box { 
-      margin-top: 10px; 
-      border: 2px dashed #bdc3c7; 
-      padding: 8px; 
-      border-radius: 6px; 
-      background-color: #fafbfc; 
+    .recap-box {
+      margin-top: 10px;
+      border: 2px dashed #bdc3c7;
+      padding: 8px;
+      border-radius: 6px;
+      background-color: #fafbfc;
     }
-    .recap-box h3 { 
-      margin: 0 0 5px 0; 
-      font-size: 14px; 
-      text-align: center; 
-      color: #2c3e50; 
+    .recap-box h3 {
+      margin: 0 0 5px 0;
+      font-size: 14px;
+      text-align: center;
+      color: #2c3e50;
     }
-    .recap-box h3 i { margin-right: 6px; color: #3498db; }
-    .recap-table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
-    .recap-table th, .recap-table td { padding: 4px 6px; border: 1px solid #ddd; }
-    .recap-table th { background-color: #eaedd2; color: #333; font-weight: bold; }
-    .conclusion-row { font-weight: bold; background-color: #e8f4fd; color: #2c3e50; }
-    
+    .recap-box h3 i {
+      margin-right: 6px;
+      color: #3498db;
+    }
+    .recap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+    .recap-table th,
+    .recap-table td {
+      padding: 4px 6px;
+      border: 1px solid #ddd;
+    }
+    .recap-table th {
+      background-color: #eaedd2;
+      color: #333;
+      font-weight: bold;
+    }
+    .conclusion-row {
+      font-weight: bold;
+      background-color: #e8f4fd;
+      color: #2c3e50;
+    }
+
     /* ===== TABLEAUX BOX (Historique GSheet) ===== */
     .tableaux-box {
       flex: 1;
@@ -211,8 +266,11 @@
       border-bottom: 2px solid #3498db;
       padding-bottom: 5px;
     }
-    .tableaux-box h3 i { margin-right: 6px; color: #3498db; }
-    
+    .tableaux-box h3 i {
+      margin-right: 6px;
+      color: #3498db;
+    }
+
     .table-container {
       width: 100%;
       overflow-x: auto;
@@ -226,7 +284,8 @@
       text-align: left;
       white-space: nowrap;
     }
-    .data-table th, .data-table td {
+    .data-table th,
+    .data-table td {
       padding: 6px 10px;
       border-bottom: 1px solid #e2e8f0;
     }
@@ -241,16 +300,16 @@
       background-color: #f1f5f9;
     }
     /* Alignement global des tableaux : 1ère colonne à gauche, les autres à droite */
-    .recap-table th:not(:first-child), 
+    .recap-table th:not(:first-child),
     .recap-table td:not(:first-child),
-    .data-table th:not(:first-child), 
+    .data-table th:not(:first-child),
     .data-table td:not(:first-child) {
       text-align: right;
     }
 
-    .recap-table th:first-child, 
+    .recap-table th:first-child,
     .recap-table td:first-child,
-    .data-table th:first-child, 
+    .data-table th:first-child,
     .data-table td:first-child {
       text-align: left;
     }
@@ -281,46 +340,74 @@
       background: #3498db;
       color: white;
     }
-    .mobile-tab i { margin-right: 4px; }
-    
+    .mobile-tab i {
+      margin-right: 4px;
+    }
+
     /* ===== MODALES ===== */
-    .modal-overlay { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      background: rgba(44, 62, 80, 0.95); 
-      display: flex; justify-content: center; align-items: center; 
-      z-index: 9999; 
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(44, 62, 80, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
-    .modal-box { 
-      background: white; 
-      padding: 25px; 
-      border-radius: 12px; 
-      text-align: center; 
-      max-width: 360px; 
-      width: 90%; 
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+    .modal-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
-    .modal-box h3 { margin-top: 0; color: #2c3e50; margin-bottom: 20px; font-size: 16px; }
-    .modal-box h3 i { margin-right: 8px; color: #3498db; }
-    .user-options { display: flex; justify-content: space-around; gap: 15px; }
-    .user-btn { 
-      background: #f8f9fa; 
-      border: 2px solid #e2e8f0;
-      border-radius: 10px; 
-      /*padding: 10px;*/
-      width: 100px;
-      cursor: pointer; 
-      transition: all 0.2s; 
-      text-align: center; 
+    .modal-box h3 {
+      margin-top: 0;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 16px;
     }
-    .user-btn:hover { border-color: #3498db; background: #eef2f7; transform: translateY(-2px); }
-    .user-icon { 
-      margin-top: 10px;
-      font-size: 50px;
-      display: block; 
+    .modal-box h3 i {
+      margin-right: 8px;
       color: #3498db;
     }
-    .user-name { font-weight: bold; color: #2c3e50; font-size: 13px; }
-    
+    .user-options {
+      display: flex;
+      justify-content: space-around;
+      gap: 15px;
+    }
+    .user-btn {
+      background: #f8f9fa;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      /*padding: 10px;*/
+      width: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .user-btn:hover {
+      border-color: #3498db;
+      background: #eef2f7;
+      transform: translateY(-2px);
+    }
+    .user-icon {
+      margin-top: 10px;
+      font-size: 50px;
+      display: block;
+      color: #3498db;
+    }
+    .user-name {
+      font-weight: bold;
+      color: #2c3e50;
+      font-size: 13px;
+    }
+
     /* ===== CALCULATRICE ===== */
     #calcModal .calc-modal-box {
       background: white;
@@ -328,7 +415,7 @@
       width: 95vw;
       max-width: 420px;
       padding: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
     #calcModal .calc-header {
       display: flex;
@@ -341,7 +428,10 @@
       color: #2c3e50;
       font-size: 18px;
     }
-    #calcModal .calc-title i { margin-right: 8px; color: #3498db; }
+    #calcModal .calc-title i {
+      margin-right: 8px;
+      color: #3498db;
+    }
     #calcModal .calc-close {
       cursor: pointer;
       font-weight: bold;
@@ -367,40 +457,77 @@
       gap: 8px;
     }
     #calcModal .calc-btn {
-      padding: 0; margin: 0; width: 100%; height: 72px;
-      font-size: 26px; font-weight: bold;
-      border: none; border-radius: 10px; cursor: pointer;
-      color: white; display: flex; align-items: center; justify-content: center;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 72px;
+      font-size: 26px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: opacity 0.15s, transform 0.1s;
       -webkit-tap-highlight-color: transparent;
     }
-    #calcModal .calc-btn:active { opacity: 0.75; transform: scale(0.95); }
-    #calcModal .calc-btn.span2 { grid-column: span 2; }
-    #calcModal .calc-btn.span-row2 { grid-row: span 2; height: 100%; }
-    #calcModal .btn-red    { background: #e74c3c; }
-    #calcModal .btn-dark   { background: #34495e; }
-    #calcModal .btn-gray   { background: #7f8c8d; }
-    #calcModal .btn-green  { background: #2ecc71; }
+    #calcModal .calc-btn:active {
+      opacity: 0.75;
+      transform: scale(0.95);
+    }
+    #calcModal .calc-btn.span2 {
+      grid-column: span 2;
+    }
+    #calcModal .calc-btn.span-row2 {
+      grid-row: span 2;
+      height: 100%;
+    }
+    #calcModal .btn-red {
+      background: #e74c3c;
+    }
+    #calcModal .btn-dark {
+      background: #34495e;
+    }
+    #calcModal .btn-gray {
+      background: #7f8c8d;
+    }
+    #calcModal .btn-green {
+      background: #2ecc71;
+    }
     #calcModal .calc-ok-btn {
-      margin-top: 12px; width: 100%; padding: 20px;
-      font-size: 24px; font-weight: bold;
-      background: #27ae60; color: white;
-      border: none; border-radius: 10px; cursor: pointer;
+      margin-top: 12px;
+      width: 100%;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
-    #calcModal .calc-ok-btn:active { opacity: 0.8; }
-    
+    #calcModal .calc-ok-btn:active {
+      opacity: 0.8;
+    }
+
     /* ===== RESPONSIVE - MOBILE ===== */
     @media (max-width: 1080px) {
-      body { padding: 0; }
-      
+      body {
+        padding: 0;
+      }
+
       header {
         border-radius: 0;
         margin-bottom: 0;
         padding: 12px 16px;
       }
-      .user-badge { font-size: 11px; }
-      
+      .user-badge {
+        font-size: 11px;
+      }
+
       .status-mobile {
         position: fixed;
         top: 0;
@@ -408,7 +535,7 @@
         width: 100%;
         z-index: 100000;
         border-radius: 0 !important;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         margin: 0 !important;
       }
 
@@ -417,567 +544,636 @@
         gap: 0;
         padding: 10px;
       }
-      
-      .col-left, .col-right {
+
+      .col-left,
+      .col-right {
         width: 100%;
         border-radius: 8px;
         padding: 14px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
-      
-      .mobile-tabs { display: flex; }
-      .col-left.hidden-mobile, .col-right.hidden-mobile { display: none; }
-      
-      label { font-size: 14px; }
-      input[type="number"], input[type="date"] { font-size: 16px; padding: 10px 12px; }
-      .calc-input-icon { width: 26px; bottom: 8px; right: 10px; }
-      
-      .jour-box { font-size: 16px; padding: 10px; height: auto; line-height: 1.2; margin-top: 0; }
-      legend { font-size: 15px; }
-      fieldset { padding: 12px; }
-      button { font-size: 16px; padding: 12px; }
-      
-      .recap-box h3 { font-size: 15px; }
-      .recap-table { font-size: 13px; }
-      .recap-table th, .recap-table td { padding: 6px 8px; }
-      
-      .modal-box { padding: 20px; }
-      .user-btn { padding: 14px; width: 110px; }
-      .user-icon { font-size: 44px; }
-      .user-name { font-size: 14px; }
-      
-      #calcModal .calc-modal-box { width: 98vw; padding: 14px 10px; }
-      #calcScreen { font-size: 28px; padding: 16px; }
-      #calcModal .calc-btn { height: 72px; font-size: 24px; }
-      #calcModal .calc-ok-btn { font-size: 22px; padding: 18px; }
+
+      .mobile-tabs {
+        display: flex;
+      }
+      .col-left.hidden-mobile,
+      .col-right.hidden-mobile {
+        display: none;
+      }
+
+      label {
+        font-size: 14px;
+      }
+      input[type="number"],
+      input[type="date"] {
+        font-size: 16px;
+        padding: 10px 12px;
+      }
+      .calc-input-icon {
+        width: 26px;
+        bottom: 8px;
+        right: 10px;
+      }
+
+      .jour-box {
+        font-size: 16px;
+        padding: 10px;
+        height: auto;
+        line-height: 1.2;
+        margin-top: 0;
+      }
+      legend {
+        font-size: 15px;
+      }
+      fieldset {
+        padding: 12px;
+      }
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      .recap-box h3 {
+        font-size: 15px;
+      }
+      .recap-table {
+        font-size: 13px;
+      }
+      .recap-table th,
+      .recap-table td {
+        padding: 6px 8px;
+      }
+
+      .modal-box {
+        padding: 20px;
+      }
+      .user-btn {
+        padding: 14px;
+        width: 110px;
+      }
+      .user-icon {
+        font-size: 44px;
+      }
+      .user-name {
+        font-size: 14px;
+      }
+
+      #calcModal .calc-modal-box {
+        width: 98vw;
+        padding: 14px 10px;
+      }
+      #calcScreen {
+        font-size: 28px;
+        padding: 16px;
+      }
+      #calcModal .calc-btn {
+        height: 72px;
+        font-size: 24px;
+      }
+      #calcModal .calc-ok-btn {
+        font-size: 22px;
+        padding: 18px;
+      }
     }
   </style>
 </head>
 <body>
 
-<div id="userModal" class="modal-overlay">
-  <div class="modal-box">
-    <h3><i class="bi bi-person-check-fill"></i>Qui est-ce ?</h3>
-    <div class="user-options">
-      <div class="user-btn" onclick="connecterUtilisateur('Ferid')">
-        <span class="user-icon"><img src="ferico.png" alt="Ferid"></span>
-      </div>
-      <div class="user-btn" onclick="connecterUtilisateur('Saber')">
-        <span class="user-icon"><img src="sabico.png" alt="Saber"></span>
+  <div id="userModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3><i class="bi bi-person-check-fill"></i>Qui est-ce ?</h3>
+      <div class="user-options">
+        <div class="user-btn" onclick="connecterUtilisateur('Ferid')">
+          <span class="user-icon"><img src="ferico.png" alt="Ferid"></span>
+        </div>
+        <div class="user-btn" onclick="connecterUtilisateur('Saber')">
+          <span class="user-icon"><img src="sabico.png" alt="Saber"></span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="calcModal" class="modal-overlay" style="display:none; background: rgba(0,0,0,0.6); z-index: 10000;">
-  <div class="calc-modal-box">
-    <div class="calc-header">
-      <span class="calc-title"><i class="bi bi-calculator-fill"></i>Calculatrice</span>
-      <span class="calc-close" onclick="annulerCalculatrice()"><i class="bi bi-x-lg"></i></span>
-    </div>
-    <input type="text" id="calcScreen" readonly value="0">
-    <div class="calc-grid">
-      <button type="button" class="calc-btn btn-red"  onclick="pressCalc('C')">C</button>
-      <button type="button" class="calc-btn btn-dark" onclick="pressCalc('/')">/</button>
-      <button type="button" class="calc-btn btn-dark" onclick="pressCalc('*')">×</button>
-      <button type="button" class="calc-btn btn-dark span-row2" onclick="pressCalc('-')">−</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('7')">7</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('8')">8</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('9')">9</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('4')">4</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('5')">5</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('6')">6</button>
-      <button type="button" class="calc-btn btn-dark span-row2" onclick="pressCalc('+')">+</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('1')">1</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('2')">2</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('3')">3</button>
-      <button type="button" class="calc-btn btn-gray span2" onclick="pressCalc('0')">0</button>
-      <button type="button" class="calc-btn btn-gray" onclick="pressCalc('.')">.</button>
-      <button type="button" class="calc-btn btn-green span-row2" onclick="pressCalc('=')">=</button>
-    </div>
-    <button type="button" class="calc-ok-btn" onclick="validerEtAppliquerCalcul()"><i class="bi bi-check-lg"></i> OK</button>
-  </div>
-</div>
-
-<header id="appHeader">
-  <div style="display:flex; flex-direction: column;">
-    <h2>Masrouf : Ferid & Saber</h2>
-    <div id="currentUser" class="user-badge"></div>
-  </div>
-  
-  <div id="status" class="status-pc"></div>
-
-  <div id="currentUserBadge">Connecté en tant que : --</div>
-</header>
-
-<main class="main-container">
-  
-  <div class="mobile-tabs" style="width:100%;">
-    <button class="mobile-tab active" onclick="switchMobileTab('form', this)">
-      <i class="bi bi-pencil-square"></i>Saisie
-    </button>
-    <button class="mobile-tab" onclick="switchMobileTab('tables', this)">
-      <i class="bi bi-table"></i>Tableaux
-    </button>
-  </div>
-  
-  <section class="col-left" id="colLeft">
-    <form id="masroufForm" onsubmit="return false;">
-      <div class="grid-2" style="margin-bottom: 12px; align-items: stretch;">
-        <div class="form-group" style="flex: 1;">
-          <label><i class="bi bi-calendar3"></i> Date</label>
-          <input type="date" id="date" required onchange="updateJour()" style="height: 100%;">
-        </div>
-        <div class="form-group" style="flex: 1;">
-          <label><i class="bi bi-calendar3-event"></i> Jour</label>
-          <label id="jourLabel" class="jour-box" style="height: 100%; display: flex; align-items: center; justify-content: center;">-</label>
-        </div>
+  <div id="calcModal" class="modal-overlay" style="display:none; background: rgba(0,0,0,0.6); z-index: 10000;">
+    <div class="calc-modal-box">
+      <div class="calc-header">
+        <span class="calc-title"><i class="bi bi-calculator-fill"></i>Calculatrice</span>
+        <span class="calc-close" onclick="annulerCalculatrice()"><i class="bi bi-x-lg"></i></span>
       </div>
+      <input type="text" id="calcScreen" readonly value="0">
+      <div class="calc-grid">
+        <button type="button" class="calc-btn btn-red" onclick="pressCalc('C')">C</button>
+        <button type="button" class="calc-btn btn-dark" onclick="pressCalc('/')">/</button>
+        <button type="button" class="calc-btn btn-dark" onclick="pressCalc('*')">×</button>
+        <button type="button" class="calc-btn btn-dark span-row2" onclick="pressCalc('-')">−</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('7')">7</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('8')">8</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('9')">9</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('4')">4</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('5')">5</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('6')">6</button>
+        <button type="button" class="calc-btn btn-dark span-row2" onclick="pressCalc('+')">+</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('1')">1</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('2')">2</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('3')">3</button>
+        <button type="button" class="calc-btn btn-gray span2" onclick="pressCalc('0')">0</button>
+        <button type="button" class="calc-btn btn-gray" onclick="pressCalc('.')">.</button>
+        <button type="button" class="calc-btn btn-green span-row2" onclick="pressCalc('=')">=</button>
+      </div>
+      <button type="button" class="calc-ok-btn" onclick="validerEtAppliquerCalcul()"><i class="bi bi-check-lg"></i> OK</button>
+    </div>
+  </div>
 
-      <fieldset id="sectionFerid">
-        <legend>Espace Ferid</legend>
-        <div style="display: flex; gap: 10px;">
-          <div class="form-group" style="flex: 1;">
-            <div class="label-container">
-              <label for="ferid">Dépense Ferid (DT)</label>
-            </div>
-            <input type="number" step="0.001" id="ferid" placeholder="0.000" onfocus="gererFocusInput('ferid')" onblur="masquerIconeCalculatrice('ferid')">
-            <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-ferid" onmousedown="ouvrirCalculatrice('ferid')">
-          </div>
-          <div class="form-group" style="flex: 1;">
-            <div class="label-container">
-              <label for="tickets">Nombre de Tickets</label>
-            </div>
-            <input type="number" id="tickets" placeholder="0" onfocus="gererFocusInput('tickets')" onblur="masquerIconeCalculatrice('tickets')">
-            <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-tickets" onmousedown="ouvrirCalculatrice('tickets')">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="label-container">
-            <label for="ferToSab">Argent donné à Saber</label>
-          </div>
-          <input type="number" step="0.001" id="ferToSab" placeholder="0.000" onfocus="gererFocusInput('ferToSab')" onblur="masquerIconeCalculatrice('ferToSab')">
-          <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-ferToSab" onmousedown="ouvrirCalculatrice('ferToSab')">
-        </div>
-      </fieldset>
+  <header id="appHeader">
+    <div style="display:flex; flex-direction: column;">
+      <h2>Masrouf : Ferid & Saber</h2>
+      <div id="currentUser" class="user-badge"></div>
+    </div>
 
-      <fieldset id="sectionSaber">
-        <legend>Espace Saber</legend>
-        <div class="form-group">
-          <div class="label-container">
-            <label for="saber">Dépense Saber (DT)</label>
-          </div>
-          <input type="number" step="0.001" id="saber" placeholder="0.000" onfocus="gererFocusInput('saber')" onblur="masquerIconeCalculatrice('saber')">
-          <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-saber" onmousedown="ouvrirCalculatrice('saber')">
-        </div>
-        <div class="form-group">
-          <div class="label-container">
-            <label for="sabToFer">Argent donné à Ferid</label>
-          </div>
-          <input type="number" step="0.001" id="sabToFer" placeholder="0.000" onfocus="gererFocusInput('sabToFer')" onblur="masquerIconeCalculatrice('sabToFer')">
-          <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-sabToFer" onmousedown="ouvrirCalculatrice('sabToFer')">
-        </div>
-      </fieldset>
+    <div id="status" class="status-pc"></div>
 
-      <button type="button" onclick="soumettreFormulaire()">
-        <i class="bi bi-save-fill"></i>Enregistrer la dépense
+    <div id="currentUserBadge">Connecté en tant que : --</div>
+  </header>
+
+  <main class="main-container">
+
+    <div class="mobile-tabs" style="width:100%;">
+      <button class="mobile-tab active" onclick="switchMobileTab('form', this)">
+        <i class="bi bi-pencil-square"></i>Saisie
       </button>
-    </form>
-
-    <div class="recap-box">
-      <h3><i class="bi bi-bar-chart-fill"></i>Feuille "Récap"</h3>
-      <table class="recap-table">
-        <thead>
-          <tr>
-            <th>Indicateur</th>
-            <th>Ferid</th>
-            <th>Saber</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Valeur tickets</td>
-            <td id="rcValTicketsFer">...</td>
-            <td id="rcValTicketsSab">...</td>
-          </tr>
-          <tr>
-            <td>Tot dépenses</td>
-            <td id="rcTotFer">...</td>
-            <td id="rcTotSab">...</td>
-          </tr>
-          <tr>
-            <td>Parts dép Ferid</td>
-            <td id="rcPartFerFer">...</td>
-            <td id="rcPartFerSab">...</td>
-          </tr>
-          <tr>
-            <td>Parts dép Saber</td>
-            <td id="rcPartSabFer">...</td>
-            <td id="rcPartSabSab">...</td>
-          </tr>
-          <tr>
-            <td>Parts totales</td>
-            <td id="rcPartTotFer">...</td>
-            <td id="rcPartTotSab">...</td>
-          </tr>
-          <tr class="conclusion-row">
-            <td>Conclusion</td>
-            <td id="rcConclusion" colspan="2" style="text-align: center;">...</td>
-          </tr>
-        </tbody>
-      </table>
+      <button class="mobile-tab" onclick="switchMobileTab('tables', this)">
+        <i class="bi bi-table"></i>Tableaux
+      </button>
     </div>
-  </section>
-  
-  <section class="col-right hidden-mobile" id="colRight">
-    <div class="tableaux-box">
-      <h3><i class="bi bi-table"></i>Historique des Dépenses</h3>
-      <div class="table-container">
-        <table class="data-table" id="historiqueTable">
+
+    <section class="col-left" id="colLeft">
+      <form id="masroufForm" onsubmit="return false;">
+        <div class="grid-2" style="margin-bottom: 12px; align-items: stretch;">
+          <div class="form-group" style="flex: 1;">
+            <label><i class="bi bi-calendar3"></i> Date</label>
+            <input type="date" id="date" required onchange="updateJour()" style="height: 100%;">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label><i class="bi bi-calendar3-event"></i> Jour</label>
+            <label id="jourLabel" class="jour-box" style="height: 100%; display: flex; align-items: center; justify-content: center;">-</label>
+          </div>
+        </div>
+
+        <fieldset id="sectionFerid">
+          <legend>Espace Ferid</legend>
+          <div style="display: flex; gap: 10px;">
+            <div class="form-group" style="flex: 1;">
+              <div class="label-container">
+                <label for="ferid">Dépense Ferid (DT)</label>
+              </div>
+              <input type="number" step="0.001" id="ferid" placeholder="0.000" onfocus="gererFocusInput('ferid')" onblur="masquerIconeCalculatrice('ferid')">
+              <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-ferid" onmousedown="ouvrirCalculatrice('ferid')">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <div class="label-container">
+                <label for="tickets">Nombre de Tickets</label>
+              </div>
+              <input type="number" id="tickets" placeholder="0" onfocus="gererFocusInput('tickets')" onblur="masquerIconeCalculatrice('tickets')">
+              <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-tickets" onmousedown="ouvrirCalculatrice('tickets')">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label for="ferToSab">Argent donné à Saber</label>
+            </div>
+            <input type="number" step="0.001" id="ferToSab" placeholder="0.000" onfocus="gererFocusInput('ferToSab')" onblur="masquerIconeCalculatrice('ferToSab')">
+            <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-ferToSab" onmousedown="ouvrirCalculatrice('ferToSab')">
+          </div>
+        </fieldset>
+
+        <fieldset id="sectionSaber">
+          <legend>Espace Saber</legend>
+          <div class="form-group">
+            <div class="label-container">
+              <label for="saber">Dépense Saber (DT)</label>
+            </div>
+            <input type="number" step="0.001" id="saber" placeholder="0.000" onfocus="gererFocusInput('saber')" onblur="masquerIconeCalculatrice('saber')">
+            <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-saber" onmousedown="ouvrirCalculatrice('saber')">
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label for="sabToFer">Argent donné à Ferid</label>
+            </div>
+            <input type="number" step="0.001" id="sabToFer" placeholder="0.000" onfocus="gererFocusInput('sabToFer')" onblur="masquerIconeCalculatrice('sabToFer')">
+            <img src="calculator.png" alt="calc" class="calc-input-icon" id="icon-sabToFer" onmousedown="ouvrirCalculatrice('sabToFer')">
+          </div>
+        </fieldset>
+
+        <button type="button" onclick="soumettreFormulaire()">
+          <i class="bi bi-save-fill"></i>Enregistrer la dépense
+        </button>
+      </form>
+
+      <div class="recap-box">
+        <h3><i class="bi bi-bar-chart-fill"></i>Feuille "Récap"</h3>
+        <table class="recap-table">
           <thead>
             <tr>
-              <th>Jour</th>
-              <th>Date</th>
-              <th>Ferid (DT)</th>
-              <th>Tickets</th>
-              <th>Saber (DT)</th>
-              <th>Fer ➔ Sab</th>
-              <th>Sab ➔ Fer</th>
+              <th>Indicateur</th>
+              <th>Ferid</th>
+              <th>Saber</th>
             </tr>
           </thead>
-          <tbody id="historiqueBody">
+          <tbody>
             <tr>
-              <td colspan="7" style="text-align:center; color:#95a5a6; padding:20px;">
-                <i class="bi bi-hourglass-split"></i> Chargement des données...
-              </td>
+              <td>Valeur tickets</td>
+              <td id="rcValTicketsFer">...</td>
+              <td id="rcValTicketsSab">...</td>
+            </tr>
+            <tr>
+              <td>Tot dépenses</td>
+              <td id="rcTotFer">...</td>
+              <td id="rcTotSab">...</td>
+            </tr>
+            <tr>
+              <td>Parts dép Ferid</td>
+              <td id="rcPartFerFer">...</td>
+              <td id="rcPartFerSab">...</td>
+            </tr>
+            <tr>
+              <td>Parts dép Saber</td>
+              <td id="rcPartSabFer">...</td>
+              <td id="rcPartSabSab">...</td>
+            </tr>
+            <tr>
+              <td>Parts totales</td>
+              <td id="rcPartTotFer">...</td>
+              <td id="rcPartTotSab">...</td>
+            </tr>
+            <tr class="conclusion-row">
+              <td>Conclusion</td>
+              <td id="rcConclusion" colspan="2" style="text-align: center;">...</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
-<script>
-  // ===== CONFIGURATION =====
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbxpnTquxHY9V7RCH9VT6BuZIWD1j81bJZI_Oei-dxe410W8fKZf-8GhnG8OPk_n0IG97g/exec";
+    <section class="col-right hidden-mobile" id="colRight">
+      <div class="tableaux-box">
+        <h3><i class="bi bi-table"></i>Historique des Dépenses</h3>
+        <div class="table-container">
+          <table class="data-table" id="historiqueTable">
+            <thead>
+              <tr>
+                <th>Jour</th>
+                <th>Date</th>
+                <th>Ferid (DT)</th>
+                <th>Tickets</th>
+                <th>Saber (DT)</th>
+                <th>Fer ➔ Sab</th>
+                <th>Sab ➔ Fer</th>
+              </tr>
+            </thead>
+            <tbody id="historiqueBody">
+              <tr>
+                <td colspan="7" style="text-align:center; color:#95a5a6; padding:20px;">
+                  <i class="bi bi-hourglass-split"></i> Chargement des données...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  let jourCalcule = "";
-  let utilisateurConnecte = "";
-  let currentFocusedInputId = "";
-  let expressionCalcul = "";
-  let calcOuverte = false;
+  <script>
+    // ===== CONFIGURATION =====
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxpnTquxHY9V7RCH9VT6BuZIWD1j81bJZI_Oei-dxe410W8fKZf-8GhnG8OPk_n0IG97g/exec";
 
-  // ===== INITIALISATION =====
-  document.getElementById('date').valueAsDate = new Date();
-  updateJour();
-  ajusterNotificationResponsive();
-  window.addEventListener('resize', ajusterNotificationResponsive);
+    let jourCalcule = "";
+    let utilisateurConnecte = "";
+    let currentFocusedInputId = "";
+    let expressionCalcul = "";
+    let calcOuverte = false;
 
-  // ===== ADAPTATION NOTIFICATION RESPONSIVE =====
-  function ajusterNotificationResponsive() {
-    const statusDiv = document.getElementById('status');
-    if (window.innerWidth <= 1080) {
-      statusDiv.className = 'status-mobile';
-      document.body.insertBefore(statusDiv, document.body.firstChild);
-    } else {
-      statusDiv.className = 'status-pc';
-      const appHeader = document.getElementById('appHeader');
-      const badge = document.getElementById('currentUserBadge');
-      appHeader.insertBefore(statusDiv, badge);
-    }
-  }
+    // ===== INITIALISATION =====
+    document.getElementById('date').valueAsDate = new Date();
+    updateJour();
+    ajusterNotificationResponsive();
+    window.addEventListener('resize', ajusterNotificationResponsive);
 
-  function afficherNotification(message, type, permanent = false) {
-    const statusDiv = document.getElementById('status');
-    statusDiv.style.display = 'block';
-    statusDiv.className = (window.innerWidth <= 1080 ? 'status-mobile ' : 'status-pc ') + type;
-    statusDiv.innerHTML = message;
-    
-    if (!permanent && type === 'success') {
-      setTimeout(() => { statusDiv.style.display = 'none'; }, 4000);
-    }
-  }
-
-  // ===== TOGGLE MOBILE =====
-  function switchMobileTab(tab, btn) {
-    document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    
-    const colLeft = document.getElementById('colLeft');
-    const colRight = document.getElementById('colRight');
-    
-    if (tab === 'form') {
-      colLeft.classList.remove('hidden-mobile');
-      colRight.classList.add('hidden-mobile');
-    } else {
-      colLeft.classList.add('hidden-mobile');
-      colRight.classList.remove('hidden-mobile');
-    }
-  }
-
-  // ===== UTILISATEUR =====
-  function connecterUtilisateur(nom) {
-    utilisateurConnecte = nom;
-    const icone = nom === 'Ferid' 
-      ? '<img src="ferico.png" alt="Ferid" class="icone-profil">' 
-      : '<img src="sabico.png" alt="Saber" class="icone-profil">';
-    document.getElementById('currentUser').innerHTML = `Session : <strong>${nom}</strong>`;
-    document.getElementById('currentUserBadge').innerHTML = `${icone}`;
-    
-    if(nom === 'Ferid') {
-      document.getElementById('sectionSaber').style.display = 'none';
-      document.getElementById('sectionFerid').style.display = 'block';
-    } else {
-      document.getElementById('sectionFerid').style.display = 'none';
-      document.getElementById('sectionSaber').style.display = 'block';
-    }
-    document.getElementById('userModal').style.display = 'none';
-    
-    // Chargement global simultané
-    chargerRecapDepuisSheets();
-    chargerHistoriqueDepuisSheets();
-  }
-
-  // ===== JOUR =====
-  function updateJour() {
-    const dateInput = document.getElementById('date').value;
-    if(dateInput){
-      const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-      const d = new Date(dateInput);
-      jourCalcule = jours[d.getDay()];
-      document.getElementById('jourLabel').textContent = jourCalcule;
-    }
-  }
-
-  // ===== GESTION CALCULATRICE VISUELLE & FOCUS =====
-  function gererFocusInput(id) {
-    currentFocusedInputId = id;
-    document.querySelectorAll('.calc-input-icon').forEach(icon => icon.style.display = 'none');
-    const activeIcon = document.getElementById('icon-' + id);
-    if (activeIcon) activeIcon.style.display = 'block';
-  }
-
-  function masquerIconeCalculatrice(id) {
-    setTimeout(() => {
-      if (currentFocusedInputId !== id || !calcOuverte) {
-        const icon = document.getElementById('icon-' + id);
-        if (icon) icon.style.display = 'none';
+    // ===== ADAPTATION NOTIFICATION RESPONSIVE =====
+    function ajusterNotificationResponsive() {
+      const statusDiv = document.getElementById('status');
+      if (window.innerWidth <= 1080) {
+        statusDiv.className = 'status-mobile';
+        document.body.insertBefore(statusDiv, document.body.firstChild);
+      } else {
+        statusDiv.className = 'status-pc';
+        const appHeader = document.getElementById('appHeader');
+        const badge = document.getElementById('currentUserBadge');
+        appHeader.insertBefore(statusDiv, badge);
       }
-    }, 200);
-  }
-
-  function ouvrirCalculatrice(id) {
-    currentFocusedInputId = id;
-    expressionCalcul = "";
-    document.getElementById('calcScreen').value = "0";
-    document.getElementById('calcModal').style.display = 'flex';
-    calcOuverte = true;
-  }
-
-  function annulerCalculatrice() {
-    document.getElementById('calcModal').style.display = 'none';
-    calcOuverte = false;
-    if (currentFocusedInputId) masquerIconeCalculatrice(currentFocusedInputId);
-  }
-
-  function validerEtAppliquerCalcul() {
-    const ecran = document.getElementById('calcScreen');
-    if (expressionCalcul !== "") {
-      try {
-        let resultat = Function('"use strict";return (' + expressionCalcul + ')')();
-        expressionCalcul = resultat.toString();
-        ecran.value = Number(resultat).toFixed(3).replace('.', ',');
-      } catch (e) { ecran.value = "Erreur"; return; }
     }
-    let valFinale = ecran.value.replace(',', '.');
-    if (!isNaN(parseFloat(valFinale)) && currentFocusedInputId) {
-      document.getElementById(currentFocusedInputId).value = parseFloat(valFinale);
-    }
-    document.getElementById('calcModal').style.display = 'none';
-    calcOuverte = false;
-    if (currentFocusedInputId) masquerIconeCalculatrice(currentFocusedInputId);
-  }
 
-  function pressCalc(touche) {
-    const ecran = document.getElementById('calcScreen');
-    if (touche === 'C') {
-      expressionCalcul = "";
-      ecran.value = "0";
-    } else if (touche === '=') {
-      try {
-        if (expressionCalcul !== "") {
-          let resultat = Function('"use strict";return (' + expressionCalcul + ')')();
-          ecran.value = Number(resultat).toFixed(3).replace('.', ',');
-          expressionCalcul = resultat.toString();
-        }
-      } catch (e) { ecran.value = "Erreur"; expressionCalcul = ""; }
-    } else {
-      let t = touche === '×' ? '*' : touche === '−' ? '-' : touche;
-      if (expressionCalcul === "" && !isNaN(t)) expressionCalcul = t;
-      else expressionCalcul += t;
-      ecran.value = expressionCalcul.replace('*', '×').replace('-', '−');
-    }
-  }
+    function afficherNotification(message, type, permanent = false) {
+      const statusDiv = document.getElementById('status');
+      statusDiv.style.display = 'block';
+      statusDiv.className = (window.innerWidth <= 1080 ? 'status-mobile ' : 'status-pc ') + type;
+      statusDiv.innerHTML = message;
 
-  // ===== INTERCEPTION DU CLAVIER NUMÉRIQUE PC =====
-  document.addEventListener('keydown', function(event) {
-    if (!calcOuverte) return;
-    const touche = event.key;
-    if (/[0-9]/.test(touche)) {
-      pressCalc(touche);
-      event.preventDefault();
-    } else if (touche === '+' || touche === '-' || touche === '*' || touche === '/') {
-      let trad = touche === '*' ? '×' : touche === '-' ? '−' : touche;
-      pressCalc(trad);
-      event.preventDefault();
-    } else if (touche === '.' || touche === ',') {
-      pressCalc('.');
-      event.preventDefault();
-    } else if (touche === 'Enter') {
-      validerEtAppliquerCalcul();
-      event.preventDefault();
-    } else if (touche === 'Escape') {
-      annulerCalculatrice();
-      event.preventDefault();
-    } else if (touche === 'Backspace' || touche === 'Delete') {
-      pressCalc('C');
-      event.preventDefault();
-    }
-  });
-
-  // ===== CHARGEMENT RÉCAP =====
-  function chargerRecapDepuisSheets() {
-    fetch(GAS_URL + '?action=getRecap', { method: 'GET', mode: 'cors' })
-    .then(response => response.json())
-    .then(dataMatrix => {
-      if(dataMatrix && dataMatrix.length >= 7) {
-        document.getElementById('rcValTicketsFer').textContent = dataMatrix[1][1] || "0,000";
-        document.getElementById('rcValTicketsSab').textContent = dataMatrix[1][2] || "0";
-        document.getElementById('rcTotFer').textContent        = dataMatrix[2][1] || "0,000";
-        document.getElementById('rcTotSab').textContent        = dataMatrix[2][2] || "0,000";
-        document.getElementById('rcPartFerFer').textContent   = dataMatrix[3][1] || "0,000";
-        document.getElementById('rcPartFerSab').textContent   = dataMatrix[3][2] || "0,000";
-        document.getElementById('rcPartSabFer').textContent   = dataMatrix[4][1] || "0,000";
-        document.getElementById('rcPartSabSab').textContent   = dataMatrix[4][2] || "0,000";
-        document.getElementById('rcPartTotFer').textContent   = dataMatrix[5][1] || "0,000";
-        document.getElementById('rcPartTotSab').textContent   = dataMatrix[5][2] || "0,000";
-        document.getElementById('rcConclusion').textContent   = dataMatrix[6][1] || "-";
+      if (!permanent && type === 'success') {
+        setTimeout(() => {
+          statusDiv.style.display = 'none';
+        }, 4000);
       }
-    })
-    .catch(error => {
-      console.error('Erreur récap:', error);
-    });
-  }
-  // ===== FONCTION UTILITAIRE DE FORMATAGE =====
-  function formaterMontant(valeur) {
-    if (!valeur) return "0,000";
-    // Nettoie la chaîne (remplace la virgule par un point pour le calcul JS)
-    let num = parseFloat(valeur.toString().replace(',', '.'));
-    if (isNaN(num)) return "0,000";
-    // Formate à 3 chiffres après la virgule et remet la virgule pour l'affichage
-    return num.toFixed(3).replace('.', ',');
-  }
-  // ===== CHARGEMENT HISTORIQUE (NOUVEAU) =====
-  function chargerHistoriqueDepuisSheets() {
-    const tbody = document.getElementById('historiqueBody');
-    
-    fetch(GAS_URL + '?action=getHistorique', { method: 'GET', mode: 'cors' })
-    .then(response => response.json())
-    .then(rows => {
-      tbody.innerHTML = "";
-      if (!rows || rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#95a5a6; padding:15px;">Aucune donnée enregistrée.</td></tr>`;
-        return;
+    }
+
+    // ===== TOGGLE MOBILE =====
+    function switchMobileTab(tab, btn) {
+      document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      const colLeft = document.getElementById('colLeft');
+      const colRight = document.getElementById('colRight');
+
+      if (tab === 'form') {
+        colLeft.classList.remove('hidden-mobile');
+        colRight.classList.add('hidden-mobile');
+      } else {
+        colLeft.classList.add('hidden-mobile');
+        colRight.classList.remove('hidden-mobile');
       }
-      
-      // Boucle inversée pour le tri antéchronologique
-      for (let i = rows.length - 1; i >= 0; i--) {
-        const rowData = rows[i];
-        const tr = document.createElement('tr');
-        
-        // rowData[3] correspond aux Tickets (entier standard), les autres sont formatés à 3 décimales
-        tr.innerHTML = `
-          <td><strong>${rowData[0] || '-'}</strong></td>
-          <td>${rowData[1] || '-'}</td>
-          <td style="color:#2980b9; font-weight:500;">${formaterMontant(rowData[2])}</td>
-          <td><span class="badge" style="background:#f1f5f9; padding:2px 6px; border-radius:4px;">${parseInt(rowData[3]) || 0}</span></td>
-          <td style="color:#e67e22; font-weight:500;">${formaterMontant(rowData[4])}</td>
-          <td>${formaterMontant(rowData[5])}</td>
-          <td>${formaterMontant(rowData[6])}</td>
-        `;
-        tbody.appendChild(tr);
+    }
+
+    // ===== UTILISATEUR =====
+    function connecterUtilisateur(nom) {
+      utilisateurConnecte = nom;
+      const icone = nom === 'Ferid' ?
+        '<img src="ferico.png" alt="Ferid" class="icone-profil">' :
+        '<img src="sabico.png" alt="Saber" class="icone-profil">';
+      document.getElementById('currentUser').innerHTML = `Session : <strong>${nom}</strong>`;
+      document.getElementById('currentUserBadge').innerHTML = `${icone}`;
+
+      if (nom === 'Ferid') {
+        document.getElementById('sectionSaber').style.display = 'none';
+        document.getElementById('sectionFerid').style.display = 'block';
+      } else {
+        document.getElementById('sectionFerid').style.display = 'none';
+        document.getElementById('sectionSaber').style.display = 'block';
       }
-    })
-    .catch(error => {
-      console.error('Erreur historique:', error);
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#e74c3c; padding:15px;">⚠ Erreur de chargement de l'historique</td></tr>`;
-    });
-  }
+      document.getElementById('userModal').style.display = 'none';
 
-  // ===== SOUMISSION DU FORMULAIRE =====
-  function soumettreFormulaire() {
-    if (!utilisateurConnecte) return;
-    
-    afficherNotification('<i class="bi bi-hourglass-split"></i> Enregistrement...', 'success', true);
-
-    const formData = {
-      date: document.getElementById('date').value,
-      jour: jourCalcule, 
-      ferid: document.getElementById('ferid').value,
-      tickets: document.getElementById('tickets').value,
-      saber: document.getElementById('saber').value,
-      ferToSab: document.getElementById('ferToSab').value,
-      sabToFer: document.getElementById('sabToFer').value,
-      qui: utilisateurConnecte
-    };
-
-    fetch(GAS_URL + '?action=addDepense', {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      afficherNotification('<i class="bi bi-check-circle-fill"></i> ' + (data.result || "Enregistré !"), 'success');
-      document.getElementById('masroufForm').reset();
-      document.getElementById('date').valueAsDate = new Date();
-      updateJour();
-      
-      // Rafraîchir l'interface complète
+      // Chargement global simultané
       chargerRecapDepuisSheets();
       chargerHistoriqueDepuisSheets();
-    })
-    .catch(error => {
-      afficherNotification('<i class="bi bi-exclamation-triangle-fill"></i> Erreur : ' + error.message, 'error');
-    });
-  }
-  </script>
-    <script>
-  // ✅ UN SEUL bloc - celui-ci
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
-    try {
-      const reg = await navigator.serviceWorker.register('./sw.js');
-      
-      reg.addEventListener('updatefound', () => {
-        const worker = reg.installing;
-        worker.addEventListener('statechange', () => {
-          if (worker.state === 'installed' && navigator.serviceWorker.controller) {
-            if (confirm('Nouvelle version disponible. Mettre à jour ?')) {
-              window.location.reload();
-            }
-          }
-        });
-      });
-      
-      console.log('SW installé');
-    } catch (err) {
-      console.error('SW error:', err);
     }
-  });
-}
+
+    // ===== JOUR =====
+    function updateJour() {
+      const dateInput = document.getElementById('date').value;
+      if (dateInput) {
+        const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+        const d = new Date(dateInput);
+        jourCalcule = jours[d.getDay()];
+        document.getElementById('jourLabel').textContent = jourCalcule;
+      }
+    }
+
+    // ===== GESTION CALCULATRICE VISUELLE & FOCUS =====
+    function gererFocusInput(id) {
+      currentFocusedInputId = id;
+      document.querySelectorAll('.calc-input-icon').forEach(icon => icon.style.display = 'none');
+      const activeIcon = document.getElementById('icon-' + id);
+      if (activeIcon) activeIcon.style.display = 'block';
+    }
+
+    function masquerIconeCalculatrice(id) {
+      setTimeout(() => {
+        if (currentFocusedInputId !== id || !calcOuverte) {
+          const icon = document.getElementById('icon-' + id);
+          if (icon) icon.style.display = 'none';
+        }
+      }, 200);
+    }
+
+    function ouvrirCalculatrice(id) {
+      currentFocusedInputId = id;
+      expressionCalcul = "";
+      document.getElementById('calcScreen').value = "0";
+      document.getElementById('calcModal').style.display = 'flex';
+      calcOuverte = true;
+    }
+
+    function annulerCalculatrice() {
+      document.getElementById('calcModal').style.display = 'none';
+      calcOuverte = false;
+      if (currentFocusedInputId) masquerIconeCalculatrice(currentFocusedInputId);
+    }
+
+    function validerEtAppliquerCalcul() {
+      const ecran = document.getElementById('calcScreen');
+      if (expressionCalcul !== "") {
+        try {
+          let resultat = Function('"use strict";return (' + expressionCalcul + ')')();
+          expressionCalcul = resultat.toString();
+          ecran.value = Number(resultat).toFixed(3).replace('.', ',');
+        } catch (e) {
+          ecran.value = "Erreur";
+          return;
+        }
+      }
+      let valFinale = ecran.value.replace(',', '.');
+      if (!isNaN(parseFloat(valFinale)) && currentFocusedInputId) {
+        document.getElementById(currentFocusedInputId).value = parseFloat(valFinale);
+      }
+      document.getElementById('calcModal').style.display = 'none';
+      calcOuverte = false;
+      if (currentFocusedInputId) masquerIconeCalculatrice(currentFocusedInputId);
+    }
+
+    function pressCalc(touche) {
+      const ecran = document.getElementById('calcScreen');
+      if (touche === 'C') {
+        expressionCalcul = "";
+        ecran.value = "0";
+      } else if (touche === '=') {
+        try {
+          if (expressionCalcul !== "") {
+            let resultat = Function('"use strict";return (' + expressionCalcul + ')')();
+            ecran.value = Number(resultat).toFixed(3).replace('.', ',');
+            expressionCalcul = resultat.toString();
+          }
+        } catch (e) {
+          ecran.value = "Erreur";
+          expressionCalcul = "";
+        }
+      } else {
+        let t = touche === '×' ? '*' : touche === '−' ? '-' : touche;
+        if (expressionCalcul === "" && !isNaN(t)) expressionCalcul = t;
+        else expressionCalcul += t;
+        ecran.value = expressionCalcul.replace('*', '×').replace('-', '−');
+      }
+    }
+
+    // ===== INTERCEPTION DU CLAVIER NUMÉRIQUE PC =====
+    document.addEventListener('keydown', function(event) {
+      if (!calcOuverte) return;
+      const touche = event.key;
+      if (/[0-9]/.test(touche)) {
+        pressCalc(touche);
+        event.preventDefault();
+      } else if (touche === '+' || touche === '-' || touche === '*' || touche === '/') {
+        let trad = touche === '*' ? '×' : touche === '-' ? '−' : touche;
+        pressCalc(trad);
+        event.preventDefault();
+      } else if (touche === '.' || touche === ',') {
+        pressCalc('.');
+        event.preventDefault();
+      } else if (touche === 'Enter') {
+        validerEtAppliquerCalcul();
+        event.preventDefault();
+      } else if (touche === 'Escape') {
+        annulerCalculatrice();
+        event.preventDefault();
+      } else if (touche === 'Backspace' || touche === 'Delete') {
+        pressCalc('C');
+        event.preventDefault();
+      }
+    });
+
+    // ===== CHARGEMENT RÉCAP =====
+    function chargerRecapDepuisSheets() {
+      fetch(GAS_URL + '?action=getRecap', {
+          method: 'GET',
+          mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(dataMatrix => {
+          if (dataMatrix && dataMatrix.length >= 7) {
+            document.getElementById('rcValTicketsFer').textContent = dataMatrix[1][1] || "0,000";
+            document.getElementById('rcValTicketsSab').textContent = dataMatrix[1][2] || "0";
+            document.getElementById('rcTotFer').textContent = dataMatrix[2][1] || "0,000";
+            document.getElementById('rcTotSab').textContent = dataMatrix[2][2] || "0,000";
+            document.getElementById('rcPartFerFer').textContent = dataMatrix[3][1] || "0,000";
+            document.getElementById('rcPartFerSab').textContent = dataMatrix[3][2] || "0,000";
+            document.getElementById('rcPartSabFer').textContent = dataMatrix[4][1] || "0,000";
+            document.getElementById('rcPartSabSab').textContent = dataMatrix[4][2] || "0,000";
+            document.getElementById('rcPartTotFer').textContent = dataMatrix[5][1] || "0,000";
+            document.getElementById('rcPartTotSab').textContent = dataMatrix[5][2] || "0,000";
+            document.getElementById('rcConclusion').textContent = dataMatrix[6][1] || "-";
+          }
+        })
+        .catch(error => {
+          console.error('Erreur récap:', error);
+        });
+    }
+    // ===== FONCTION UTILITAIRE DE FORMATAGE =====
+    function formaterMontant(valeur) {
+      if (!valeur) return "0,000";
+      // Nettoie la chaîne (remplace la virgule par un point pour le calcul JS)
+      let num = parseFloat(valeur.toString().replace(',', '.'));
+      if (isNaN(num)) return "0,000";
+      // Formate à 3 chiffres après la virgule et remet la virgule pour l'affichage
+      return num.toFixed(3).replace('.', ',');
+    }
+    // ===== CHARGEMENT HISTORIQUE (NOUVEAU) =====
+    function chargerHistoriqueDepuisSheets() {
+      const tbody = document.getElementById('historiqueBody');
+
+      fetch(GAS_URL + '?action=getHistorique', {
+          method: 'GET',
+          mode: 'cors'
+        })
+        .then(response => response.json())
+        .then(rows => {
+          tbody.innerHTML = "";
+          if (!rows || rows.length === 0) {
+            tbody.innerHTML =
+              `<tr><td colspan="7" style="text-align:center; color:#95a5a6; padding:15px;">Aucune donnée enregistrée.</td></tr>`;
+            return;
+          }
+
+          // Boucle inversée pour le tri antéchronologique
+          for (let i = rows.length - 1; i >= 0; i--) {
+            const rowData = rows[i];
+            const tr = document.createElement('tr');
+
+            // rowData[3] correspond aux Tickets (entier standard), les autres sont formatés à 3 décimales
+            tr.innerHTML = `
+                <td><strong>${rowData[0] || '-'}</strong></td>
+                <td>${rowData[1] || '-'}</td>
+                <td style="color:#2980b9; font-weight:500;">${formaterMontant(rowData[2])}</td>
+                <td><span class="badge" style="background:#f1f5f9; padding:2px 6px; border-radius:4px;">${parseInt(rowData[3]) || 0}</span></td>
+                <td style="color:#e67e22; font-weight:500;">${formaterMontant(rowData[4])}</td>
+                <td>${formaterMontant(rowData[5])}</td>
+                <td>${formaterMontant(rowData[6])}</td>
+              `;
+            tbody.appendChild(tr);
+          }
+        })
+        .catch(error => {
+          console.error('Erreur historique:', error);
+          tbody.innerHTML =
+            `<tr><td colspan="7" style="text-align:center; color:#e74c3c; padding:15px;">⚠ Erreur de chargement de l'historique</td></tr>`;
+        });
+    }
+
+    // ===== SOUMISSION DU FORMULAIRE =====
+    function soumettreFormulaire() {
+      if (!utilisateurConnecte) return;
+
+      // Récupération des valeurs
+      const feridVal = document.getElementById('ferid').value.trim();
+      const ticketsVal = document.getElementById('tickets').value.trim();
+      const saberVal = document.getElementById('saber').value.trim();
+      const ferToSabVal = document.getElementById('ferToSab').value.trim();
+      const sabToFerVal = document.getElementById('sabToFer').value.trim();
+
+      // Vérification : si toutes les valeurs sont vides ou égales à 0, on bloque l'enregistrement
+      const feridNum = parseFloat(feridVal) || 0;
+      const ticketsNum = parseFloat(ticketsVal) || 0;
+      const saberNum = parseFloat(saberVal) || 0;
+      const ferToSabNum = parseFloat(ferToSabVal) || 0;
+      const sabToFerNum = parseFloat(sabToFerVal) || 0;
+
+      if (feridNum === 0 && ticketsNum === 0 && saberNum === 0 && ferToSabNum === 0 && sabToFerNum === 0) {
+        afficherNotification('<i class="bi bi-exclamation-triangle-fill"></i> Tous les champs sont vides ou égaux à 0. Aucun enregistrement effectué.', 'error');
+        return;
+      }
+
+      afficherNotification('<i class="bi bi-hourglass-split"></i> Enregistrement...', 'success', true);
+
+      const formData = {
+        date: document.getElementById('date').value,
+        jour: jourCalcule,
+        ferid: feridVal || "0",
+        tickets: ticketsVal || "0",
+        saber: saberVal || "0",
+        ferToSab: ferToSabVal || "0",
+        sabToFer: sabToFerVal || "0",
+        qui: utilisateurConnecte
+      };
+
+      fetch(GAS_URL + '?action=addDepense', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          afficherNotification('<i class="bi bi-check-circle-fill"></i> ' + (data.result || "Enregistré !"), 'success');
+          document.getElementById('masroufForm').reset();
+          document.getElementById('date').valueAsDate = new Date();
+          updateJour();
+
+          // Rafraîchir l'interface complète
+          chargerRecapDepuisSheets();
+          chargerHistoriqueDepuisSheets();
+        })
+        .catch(error => {
+          afficherNotification('<i class="bi bi-exclamation-triangle-fill"></i> Erreur : ' + error.message, 'error');
+        });
+    }
   </script>
 </body>
 </html>
