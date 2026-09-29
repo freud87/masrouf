@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masrouf – Ferid & Saber</title>
+<style>
+:root{--bg:#f0f2f5;--card:#fff;--tx:#1a2634;--mu:#5a6b7c;--ac:#2d7fc1;--bd:#dce1e8;--hd:#eef2f7;--ok:#0e5c2b;--okb:#d1f0d6;--rd:#c0392b}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1117;--card:#1a1f2e;--tx:#e2e8f2;--mu:#7f93b5;--ac:#5aaae0;--bd:#2a3044;--hd:#1f2740;--ok:#4ec97a;--okb:#0d2e1a;--rd:#e07070}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;padding:8px}
+header{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:10px;padding:8px 12px;margin-bottom:8px;gap:8px;flex-wrap:wrap}
+h1{font-size:17px}h3{font-size:13px;margin-bottom:6px;border-bottom:2px solid var(--ac);padding-bottom:4px}
+.wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start}
+.card{background:var(--card);border-radius:10px;padding:12px;flex:1 1 320px;min-width:0}
+.card.big{flex:2 1 520px}
+label{display:block;font-size:12px;font-weight:600;margin:6px 0 2px}
+input,select{width:100%;padding:8px;border:1.5px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);font-size:15px}
+button{padding:8px 12px;border:0;border-radius:8px;background:var(--ac);color:#fff;font-weight:700;cursor:pointer;font-size:14px}
+button.sec{background:var(--mu)}button.rd{background:var(--rd)}button.sm{padding:3px 8px;font-size:12px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:5px 7px;border-bottom:1px solid var(--bd);white-space:nowrap}th{background:var(--hd)}
+td.n{text-align:right}
+.concl td{background:var(--okb);color:var(--ok);font-weight:700;text-align:center}
+#msg{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 14px;border-radius:8px;display:none;z-index:9}
+.acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.acts button{flex:1}
+.mu{color:var(--mu);font-size:11px;margin-top:6px}
+.gear{width:auto;background:transparent;color:var(--mu);font-size:18px;padding:4px 8px}
+.hidden{display:none}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:20}
+.modal .box{background:var(--card);padding:16px;border-radius:10px;width:90%;max-width:420px}
+</style>
+</head>
+<body>
+<header>
+  <h1>💸 Masrouf : Ferid &amp; Saber</h1>
+  <div class="row" style="flex:0 0 auto;gap:6px;align-items:center">
+    <select id="who" style="width:auto" onchange="setUser(this.value)"><option value="">Qui ?</option><option>Ferid</option><option>Saber</option></select>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="card">
+    <h3 id="ft">Nouvelle dépense</h3>
+    <div class="row">
+      <div><label>Date</label><input type="date" id="date"></div>
+      <div><label>Type</label><select id="type"><option value="maison">Maison (Ferid ⅔ / Saber ⅓)</option><option value="parents">Père ou Mère (50 / 50)</option></select></div>
+    </div>
+    <div id="fF">
+      <div class="row"><div><label>Dépense Ferid (DT)</label><input type="number" step="0.001" id="ferid"></div><div><label>Tickets</label><input type="number" id="tickets"></div></div>
+      <label>Argent donné à Saber (DT)</label><input type="number" step="0.001" id="ferToSab">
+    </div>
+    <div id="fS">
+      <label>Dépense Saber (DT)</label><input type="number" step="0.001" id="saber">
+      <label>Argent donné à Ferid (DT)</label><input type="number" step="0.001" id="sabToFer">
+    </div>
+    <div class="acts"><button id="bs" onclick="save()">Enregistrer</button><button class="sec" id="bc" style="display:none" onclick="reset()">Annuler</button></div>
+
+    <h3 style="margin-top:14px">Récapitulation</h3>
+    <div class="tw"><table><thead><tr><th>Indicateur</th><th>Ferid</th><th>Saber</th></tr></thead><tbody id="recap"></tbody></table></div>
+    <label>Valeur d'un ticket (DT)</label><input type="number" step="0.001" id="vt" onchange="saveSettings()">
+    <p class="mu">Tot dépenses = espèces + valeur des tickets. Parts = part de chaque personne sur le total du type.</p>
+  </section>
+
+  <section class="card big">
+    <h3>Historique <button class="sm sec" style="width:auto;float:right" onclick="load()">⟳ Actualiser</button></h3>
+    <div class="tw"><table><thead><tr><th>Jour</th><th>Date</th><th>Type</th><th>Ferid</th><th>Tickets</th><th>Saber</th><th>Fer➔Sab</th><th>Sab➔Fer</th><th>Éditeur</th><th></th></tr></thead><tbody id="hist"></tbody></table></div>
+    <div class="acts">
+      <button class="sec" onclick="exporter()">⬇ Exporter JSON</button>
+      <button class="sec" onclick="document.getElementById('imp').click()">⬆ Importer JSON</button>
+      <input type="file" id="imp" accept=".json,application/json" style="display:none" onchange="importer(this)">
+    </div>
+    <p class="mu" id="mode"></p>
+  </section>
+</div>
+<div id="msg"></div>
+
+<script>
+const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const LS='masrouf_v2', LSU='masrouf_user', LSA='masrouf_api_url';
+// URL du Web App Apps Script, collée en dur ici (remplace la valeur ci-dessous
+// par l'URL /exec obtenue après déploiement). Le bouton ⚙ reste utilisable
+// pour la remplacer temporairement sans toucher au fichier.
+const API_URL_PAR_DEFAUT='https://script.google.com/macros/s/AKfycbxsPr9CIVA49-Y6XYQHctj_2L7gnFxf8b-u_hQ0Cb7CbGNalhqRwUUKu5LhD1ZQvqat/exec';
+let rows=[], settings={vt:3}, user='', editId=null, apiUrl='';
+
+const $=id=>document.getElementById(id);
+const num=v=>parseFloat(String(v==null?'':v).replace(/[\s\u00A0\u202F]/g,'').replace(',','.'))||0;
+const fmt=n=>n.toFixed(3).replace('.',',');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const jourDe=d=>d?JOURS[new Date(d+'T00:00:00').getDay()]:'-';
+const dfr=d=>d?d.split('-').reverse().join('/'):'-';
+function toast(t){const m=$('msg');m.textContent=t;m.style.display='block';setTimeout(()=>m.style.display='none',2500)}
+
+/* ---------- stockage local (repli hors-ligne) ---------- */
+function loadLocal(){try{const d=JSON.parse(localStorage.getItem(LS));if(d){rows=d.rows||[];settings=d.settings||settings}}catch(e){}}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify({rows,settings}))}catch(e){}}
+
+/* ---------- appels au Web App ---------- */
+async function appel(body){
+  if(!apiUrl)throw new Error('no-url');
+  const r=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error('http '+r.status);
+  const d=await r.json();
+  if(d.error)throw new Error(d.error);
+  return d;
+}
+async function load(){
+  if(!apiUrl){$('mode').textContent='Mode local : aucune URL configurée (⚙).';render();return}
+  try{
+    const r=await fetch(apiUrl+'?t='+Date.now());
+    const d=await r.json();
+    if(d.error)throw new Error(d.error);
+    rows=d.rows||[];settings=Object.assign({vt:3},d.settings||{});
+    saveLocal();$('mode').textContent='Connecté au Web App.';render();
+  }catch(e){$('mode').textContent='Hors ligne / erreur de connexion — données locales affichées.';render()}
+}
+async function persistRow(r){
+  if(apiUrl){
+    try{const d=await appel({action:'upsert',row:r,utilisateur:user});rows=d.rows;settings=Object.assign({vt:3},d.settings||{});saveLocal();render();return}
+    catch(e){toast('Écriture distante impossible, sauvegarde locale');}
+  }
+  const i=rows.findIndex(x=>x.id===r.id);i<0?rows.push(r):rows[i]=r;saveLocal();render();
+}
+async function removeRow(id){
+  if(apiUrl){
+    try{const d=await appel({action:'delete',id:id,utilisateur:user});rows=d.rows;saveLocal();render();return}
+    catch(e){toast('Suppression distante impossible : '+e.message);}
+  }
+  rows=rows.filter(x=>x.id!==id);saveLocal();render();
+}
+async function saveSettings(){
+  settings.vt=num($('vt').value);
+  if(apiUrl){
+    try{const d=await appel({action:'settings',settings:settings});settings=Object.assign({vt:3},d.settings||{});saveLocal();render();return}
+    catch(e){toast('Écriture distante impossible, sauvegarde locale');}
+  }
+  saveLocal();render();
+}
+
+/* ---------- calcul du récap ---------- */
+function calcul(){
+  const vt=num(settings.vt);
+  const T={maison:{F:0,S:0,tk:0},parents:{F:0,S:0,tk:0}};
+  let fs=0,sf=0;
+  rows.forEach(r=>{
+    const t=T[r.type]||T.maison, tk=num(r.tickets)*vt;
+    t.tk+=tk; t.F+=num(r.ferid)+tk; t.S+=num(r.saber);
+    fs+=num(r.ferToSab); sf+=num(r.sabToFer);
+  });
+  const M=T.maison,P=T.parents;
+  const totM=M.F+M.S, totP=P.F+P.S;
+  const partF=totM*2/3+totP/2, partS=totM/3+totP/2;
+  const credit=(M.F+P.F-partF)+fs-sf; // >0 : Saber doit à Ferid
+  const a=Math.abs(credit);
+  const concl=a<0.0005?'Comptes équilibrés':credit>0?`Saber doit ${fmt(a)} DT à Ferid`:`Ferid doit ${fmt(a)} DT à Saber`;
+  return {M,P,partF,partS,concl};
+}
+
+/* ---------- rendu ---------- */
+function render(){
+  $('vt').value=settings.vt||'';
+  const c=calcul();
+  const L=(a,b,cc)=>`<tr><td>${a}</td><td class="n">${b}</td><td class="n">${cc}</td></tr>`;
+  $('recap').innerHTML=
+    L('Valeur tickets maison',fmt(c.M.tk),'')+
+    L('Valeur tickets parents',fmt(c.P.tk),'')+
+    L('Tot dépenses maison',fmt(c.M.F),fmt(c.M.S))+
+    L('Tot dépenses parents',fmt(c.P.F),fmt(c.P.S))+
+    L('Parts dépenses',fmt(c.partF),fmt(c.partS))+
+    `<tr class="concl"><td style="text-align:left">Conclusion</td><td colspan="2">${c.concl}</td></tr>`;
+  const sorted=[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  $('hist').innerHTML=sorted.length?'':'<tr><td colspan="10" style="text-align:center;padding:14px;color:var(--mu)">Aucune dépense.</td></tr>';
+  sorted.forEach(r=>{
+    const tr=document.createElement('tr');
+    const own=r.editeur===user;
+    tr.innerHTML=`<td><b>${jourDe(r.date)}</b></td><td>${dfr(r.date)}</td><td>${r.type==='parents'?'Parents':'Maison'}</td>
+      <td class="n">${fmt(num(r.ferid))}</td><td class="n">${num(r.tickets)}</td><td class="n">${fmt(num(r.saber))}</td>
+      <td class="n">${fmt(num(r.ferToSab))}</td><td class="n">${fmt(num(r.sabToFer))}</td><td>${r.editeur||'-'}</td><td></td>`;
+    if(own){
+      const td=tr.lastElementChild;
+      const b1=document.createElement('button');b1.textContent='✎';b1.className='sm';b1.onclick=()=>startEdit(r.id);
+      const b2=document.createElement('button');b2.textContent='🗑';b2.className='sm rd';b2.style.marginLeft='4px';b2.onclick=()=>{if(confirm('Supprimer cette dépense ?'))removeRow(r.id)};
+      td.append(b1,b2);
+    }
+    $('hist').appendChild(tr);
+  });
+}
+
+/* ---------- formulaire ---------- */
+function setUser(n){
+  user=n;try{localStorage.setItem(LSU,n)}catch(e){}
+  $('who').value=n;
+  $('fF').style.display=n==='Saber'?'none':'block';
+  $('fS').style.display=n==='Ferid'?'none':'block';
+  render();
+}
+function reset(){
+  editId=null;['ferid','tickets','saber','ferToSab','sabToFer'].forEach(i=>$(i).value='');
+  $('date').value=new Date().toISOString().slice(0,10);$('type').value='maison';
+  $('ft').textContent='Nouvelle dépense';$('bs').textContent='Enregistrer';$('bc').style.display='none';
+}
+function startEdit(id){
+  const r=rows.find(x=>x.id===id);if(!r)return;
+  editId=id;$('date').value=r.date;$('type').value=r.type||'maison';
+  $('ferid').value=r.ferid||'';$('tickets').value=r.tickets||'';$('saber').value=r.saber||'';
+  $('ferToSab').value=r.ferToSab||'';$('sabToFer').value=r.sabToFer||'';
+  $('ft').textContent='Correction';$('bs').textContent='Corriger';$('bc').style.display='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+async function save(){
+  if(!user){toast('Choisissez d\'abord qui vous êtes');return}
+  const r={id:editId||uid(),date:$('date').value,type:$('type').value,
+    ferid:user==='Ferid'?num($('ferid').value):0,tickets:user==='Ferid'?num($('tickets').value):0,
+    saber:user==='Saber'?num($('saber').value):0,
+    ferToSab:user==='Ferid'?num($('ferToSab').value):0,sabToFer:user==='Saber'?num($('sabToFer').value):0,
+    editeur:user};
+  if(!r.date){toast('Date manquante');return}
+  if(!(r.ferid||r.tickets||r.saber||r.ferToSab||r.sabToFer)){toast('Aucune donnée à enregistrer');return}
+  const wasEdit=!!editId;
+  await persistRow(r);reset();toast(wasEdit?'Dépense corrigée':'Dépense enregistrée');
+}
+
+/* ---------- import / export JSON ---------- */
+function exporter(){
+  const blob=new Blob([JSON.stringify({settings,rows},null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='masrouf.json';a.click();
+  URL.revokeObjectURL(a.href);
+}
+function importer(inp){
+  const f=inp.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=async()=>{
+    try{
+      const j=JSON.parse(rd.result);
+      const list=Array.isArray(j)?j:(j.rows||[]);
+      if(j.settings&&!Array.isArray(j)){settings=Object.assign(settings,j.settings);await saveSettings()}
+      let n=0;
+      for(const o of list){
+        const r={id:o.id||uid(),date:parseDate(o.date),type:(String(o.type||o.depenses||'').toLowerCase().startsWith('p')?'parents':'maison'),
+          ferid:num(o.ferid),tickets:num(o.tickets),saber:num(o.saber),ferToSab:num(o.ferToSab),sabToFer:num(o.sabToFer),editeur:o.editeur||''};
+        if(!r.date)continue;await persistRow(r);n++;
+      }
+      toast(n+' ligne(s) importée(s)');
+    }catch(e){toast('Fichier JSON invalide')}
+    inp.value='';
+  };
+  rd.readAsText(f);
+}
+function parseDate(s){
+  if(!s)return'';s=String(s).trim();
+  if(/^\d{4}-\d{2}-\d{2}/.test(s))return s.slice(0,10);
+  const m=s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+  return m?`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`:'';
+}
+
+/* ---------- démarrage ---------- */
+loadLocal();reset();
+apiUrl=API_URL_PAR_DEFAUT;
+if(apiUrl.indexOf('COLLE_ICI')===0)apiUrl='';
+try{const u=localStorage.getItem(LSU);if(u)setUser(u)}catch(e){}
+render();
+load();
+setInterval(load,20000); // rafraîchissement automatique toutes les 20s si une URL est configurée
+</script>
+</body>
+</html>
