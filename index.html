@@ -38,6 +38,18 @@ td.n{text-align:right}
 .modal .userbtn{padding:10px 16px;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:8px;background:transparent;color:var(--tx);border:2px solid var(--bd)}
 .modal .userbtn img{width:64px;height:64px;border-radius:50%;object-fit:cover;pointer-events:none}
 .modal .userbtn:hover{border-color:var(--ac)}
+.ig{position:relative}
+.ig input{padding-right:34px}
+.calcicon{position:absolute;right:4px;bottom:4px;width:27px;height:27px;border:0;background:var(--hd);border-radius:6px;cursor:pointer;display:none;align-items:center;justify-content:center;padding:3px}
+.calcicon img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.calcicon.show{display:flex}
+#calcModal .box{width:92vw;max-width:360px;padding:14px}
+#calcScreen{width:100%;height:52px;text-align:right;padding:8px 12px;font-size:24px;font-weight:700;background:var(--bg);border:2px solid var(--bd);border-radius:8px;color:var(--tx);margin-bottom:8px}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.calc-grid button{padding:0;height:50px;font-size:19px;color:#fff}
+.calc-grid .b-op{background:#34495e}.calc-grid .b-num{background:#7f8c8d}.calc-grid .b-c{background:#c0392b}
+.calc-grid .b-eq{background:#27ae60}.calc-grid .b-del{background:#dab600}
+.calc-ok{margin-top:8px;width:100%;padding:12px;font-size:16px;background:#27ae60}
 </style>
 </head>
 <body>
@@ -48,6 +60,39 @@ td.n{text-align:right}
     <div class="row">
       <button class="userbtn" onclick="setUser('Ferid')"><img src="ferico.png" alt="Ferid">Ferid</button>
       <button class="userbtn" onclick="setUser('Saber')"><img src="sabico.png" alt="Saber">Saber</button>
+    </div>
+  </div>
+</div>
+
+<div id="calcModal" class="modal hidden">
+  <div class="box">
+    <input id="calcScreen" readonly value="0">
+    <div class="calc-grid">
+      <button type="button" class="b-c" onclick="pressCalc('C')">C</button>
+      <button type="button" class="b-op" onclick="pressCalc('(')">(</button>
+      <button type="button" class="b-op" onclick="pressCalc(')')">)</button>
+      <button type="button" class="b-del" onclick="effacerCalc()">⌫</button>
+      <button type="button" class="b-num" onclick="pressCalc('7')">7</button>
+      <button type="button" class="b-num" onclick="pressCalc('8')">8</button>
+      <button type="button" class="b-num" onclick="pressCalc('9')">9</button>
+      <button type="button" class="b-op" onclick="pressCalc('/')">÷</button>
+      <button type="button" class="b-num" onclick="pressCalc('4')">4</button>
+      <button type="button" class="b-num" onclick="pressCalc('5')">5</button>
+      <button type="button" class="b-num" onclick="pressCalc('6')">6</button>
+      <button type="button" class="b-op" onclick="pressCalc('*')">×</button>
+      <button type="button" class="b-num" onclick="pressCalc('1')">1</button>
+      <button type="button" class="b-num" onclick="pressCalc('2')">2</button>
+      <button type="button" class="b-num" onclick="pressCalc('3')">3</button>
+      <button type="button" class="b-op" onclick="pressCalc('-')">−</button>
+      <button type="button" class="b-num" onclick="pressCalc('0')">0</button>
+      <button type="button" class="b-num" onclick="pressCalc('00')">00</button>
+      <button type="button" class="b-num" onclick="pressCalc('.')">.</button>
+      <button type="button" class="b-op" onclick="pressCalc('+')">+</button>
+    </div>
+    <div class="row" style="margin-top:8px;gap:6px">
+      <button class="sec" onclick="annulerCalc()">Annuler</button>
+      <button class="calc-ok" onclick="pressCalc('=')">=</button>
+      <button class="calc-ok" onclick="validerCalc()">OK</button>
     </div>
   </div>
 </div>
@@ -65,12 +110,18 @@ td.n{text-align:right}
       <div><label>Type</label><select id="type"><option value="maison">Maison</option><option value="baba">Baba</option><option value="ommi">Ommi</option></select></div>
     </div>
     <div id="fF">
-      <div class="row"><div><label>Dépense Ferid (DT)</label><input type="number" step="0.001" id="ferid"></div><div><label>Tickets</label><input type="number" id="tickets"></div></div>
-      <label>Argent donné à Saber (DT)</label><input type="number" step="0.001" id="ferToSab">
+      <div class="row">
+        <div><label>Dépense Ferid (DT)</label><div class="ig"><input type="number" step="0.001" id="ferid" onfocus="focusCalc('ferid')" onblur="blurCalc('ferid')"><button type="button" class="calcicon" id="ic-ferid" onmousedown="ouvrirCalc('ferid')"><img src="calculator.png" alt="calc"></button></div></div>
+        <div><label>Tickets</label><div class="ig"><input type="number" id="tickets" onfocus="focusCalc('tickets')" onblur="blurCalc('tickets')"><button type="button" class="calcicon" id="ic-tickets" onmousedown="ouvrirCalc('tickets')"><img src="calculator.png" alt="calc"></button></div></div>
+      </div>
+      <label>Argent donné à Saber (DT)</label>
+      <div class="ig"><input type="number" step="0.001" id="ferToSab" onfocus="focusCalc('ferToSab')" onblur="blurCalc('ferToSab')"><button type="button" class="calcicon" id="ic-ferToSab" onmousedown="ouvrirCalc('ferToSab')"><img src="calculator.png" alt="calc"></button></div>
     </div>
     <div id="fS">
-      <label>Dépense Saber (DT)</label><input type="number" step="0.001" id="saber">
-      <label>Argent donné à Ferid (DT)</label><input type="number" step="0.001" id="sabToFer">
+      <label>Dépense Saber (DT)</label>
+      <div class="ig"><input type="number" step="0.001" id="saber" onfocus="focusCalc('saber')" onblur="blurCalc('saber')"><button type="button" class="calcicon" id="ic-saber" onmousedown="ouvrirCalc('saber')"><img src="calculator.png" alt="calc"></button></div>
+      <label>Argent donné à Ferid (DT)</label>
+      <div class="ig"><input type="number" step="0.001" id="sabToFer" onfocus="focusCalc('sabToFer')" onblur="blurCalc('sabToFer')"><button type="button" class="calcicon" id="ic-sabToFer" onmousedown="ouvrirCalc('sabToFer')"><img src="calculator.png" alt="calc"></button></div>
     </div>
     <div class="acts"><button id="bs" onclick="save()">Enregistrer</button><button class="sec" id="bc" style="display:none" onclick="reset()">Annuler</button></div>
 
@@ -193,6 +244,67 @@ function render(){
     $('hist').appendChild(tr);
   });
 }
+
+/* ---------- calculatrice ---------- */
+let calcCible='', calcExpr='', calcOuverte=false;
+function focusCalc(id){
+  document.querySelectorAll('.calcicon').forEach(b=>b.classList.remove('show'));
+  const b=$('ic-'+id);if(b)b.classList.add('show');
+}
+function blurCalc(id){
+  setTimeout(()=>{if(!calcOuverte){const b=$('ic-'+id);if(b)b.classList.remove('show')}},150);
+}
+function ouvrirCalc(id){
+  calcCible=id;
+  const v=$(id).value.trim();
+  calcExpr=(v!==''&&!isNaN(parseFloat(v.replace(',','.'))))?v.replace(',','.'):'';
+  $('calcScreen').value=calcExpr||'0';
+  $('calcModal').classList.remove('hidden');
+  calcOuverte=true;
+}
+function annulerCalc(){
+  $('calcModal').classList.add('hidden');calcOuverte=false;
+  if(calcCible){const b=$('ic-'+calcCible);if(b)b.classList.remove('show')}
+}
+function effacerCalc(){
+  const e=$('calcScreen');
+  if(e.value.length<=1){e.value='0';calcExpr=''}
+  else{e.value=e.value.slice(0,-1);calcExpr=e.value.replace(/×/g,'*').replace(/−/g,'-')}
+}
+function pressCalc(t){
+  const e=$('calcScreen');
+  if(t==='C'){calcExpr='';e.value='0';return}
+  if(t==='='){
+    try{if(calcExpr!==''){const r=Function('"use strict";return ('+calcExpr+')')();calcExpr=String(r);e.value=Number(r).toFixed(3).replace('.',',')}}
+    catch(err){e.value='Erreur';calcExpr=''}
+    return;
+  }
+  const v=t==='×'?'*':t==='−'?'-':t;
+  calcExpr+=v;
+  e.value=calcExpr.replace(/\*/g,'×').replace(/(?<![\d.])-/g,'−');
+}
+function validerCalc(){
+  const e=$('calcScreen');
+  if(calcExpr!==''){
+    try{const r=Function('"use strict";return ('+calcExpr+')')();calcExpr=String(r);e.value=Number(r).toFixed(3).replace('.',',')}
+    catch(err){e.value='Erreur';return}
+  }
+  const val=e.value.replace(',','.');
+  if(!isNaN(parseFloat(val))&&calcCible)$(calcCible).value=parseFloat(val);
+  $('calcModal').classList.add('hidden');calcOuverte=false;
+  if(calcCible){const b=$('ic-'+calcCible);if(b)b.classList.remove('show')}
+}
+document.addEventListener('keydown',e=>{
+  if(!calcOuverte)return;
+  const k=e.key;
+  if(/[0-9]/.test(k)){pressCalc(k);e.preventDefault()}
+  else if(['+','-','*','/'].includes(k)){pressCalc(k);e.preventDefault()}
+  else if(k==='('||k===')'){pressCalc(k);e.preventDefault()}
+  else if(k==='.'||k===','){pressCalc('.');e.preventDefault()}
+  else if(k==='Enter'){validerCalc();e.preventDefault()}
+  else if(k==='Escape'){annulerCalc();e.preventDefault()}
+  else if(k==='Backspace'){effacerCalc();e.preventDefault()}
+});
 
 /* ---------- utilisateur ---------- */
 function ouvrirModaleUser(){$('userModal').classList.remove('hidden')}
